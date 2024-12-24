@@ -1,0 +1,8 @@
+name: recipi-search-engine
+services:
+  app:
+    build: .
+    volumes:
+      - ./app:/code/app # Mount the current directory to the container
+    ports:
+      - 8008:8008 
