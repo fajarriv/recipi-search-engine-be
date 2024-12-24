@@ -53,7 +53,9 @@ class RecipePreview(BaseModel):
     id: int
     name: str
     minutes: int
-    description: str | None
+    description: str
+    n_steps: int 
+    n_ingredients: int 
 
 class SearchResponse(BaseModel):
     recipes: List[RecipePreview]
@@ -65,7 +67,9 @@ class RecipeDetail(BaseModel):
     minutes: int
     ingredients: List[str]
     steps: List[str]
-    description: str | None
+    description: str 
+    n_steps: int 
+    n_ingredients: int 
 
 @app.get("/search/", response_model=SearchResponse)
 async def search_recipes(
@@ -95,7 +99,9 @@ async def search_recipes(
             id=int(row['id']),
             name=row['name'],
             minutes=int(row['minutes']),
-            description=row['description'] if pd.notnull(row['description']) else None
+            description=row['description'] if pd.notnull(row['description']) else " ",
+            n_steps = int(row['n_steps']) if pd.notnull(row['n_steps']) else 0,
+            n_ingredients = int(row['n_ingredients']) if pd.notnull(row['n_ingredients']) else 0
         )
         recipes_list.append(recipe)
 
@@ -120,7 +126,9 @@ async def get_recipe_details(recipe_id: int):
         minutes=int(row['minutes']),
         ingredients=eval(row['ingredients']),
         steps=eval(row['steps']),
-        description=row['description'] if pd.notnull(row['description']) else None
+        description=row['description'] if pd.notnull(row['description']) else " ",
+        n_steps = int(row['n_steps']) if pd.notnull(row['n_steps']) else 0,
+        n_ingredients = int(row['n_ingredients']) if pd.notnull(row['n_ingredients']) else 0
     )
 
 @app.get("/")
