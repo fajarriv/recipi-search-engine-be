@@ -8,9 +8,17 @@ import re
 from typing import List
 from pydantic import BaseModel
 import pickle
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],  
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 # Initialize pyterrier if not started
 if not pt.java.started():
     pt.java.init()
