@@ -29,3 +29,9 @@ archive.zip
 
 # macOS
 .DS_Store
+
+# ignore pickle df and model
+app/clean_recipe.pkl
+app/crossencoder_model.pkl
+app/docs_df_preprocessed.pkl
+app/recipe_index
